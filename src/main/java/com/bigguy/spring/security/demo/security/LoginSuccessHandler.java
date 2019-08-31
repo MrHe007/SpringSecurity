@@ -18,8 +18,10 @@ package com.bigguy.spring.security.demo.security;/**
  */
 
 import com.bigguy.spring.security.demo.dto.ResponseDto;
+import com.bigguy.spring.security.demo.entity.User;
 import com.bigguy.spring.security.demo.util.PrintUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
@@ -38,12 +40,25 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
-        SecurityUser user = (SecurityUser)authentication.getPrincipal();
-        //输出登录提示信息
-        log.info(user.getUsername() +" login success!");
+
+        String username = StringUtils.EMPTY;
+        if(authentication.getPrincipal() instanceof User){
+            User user = (User)authentication.getPrincipal();
+            username = user.getUsername();
+            //输出登录提示信息
+            log.info(user.getUsername() +" login success!");
+        }else if(authentication.getPrincipal() instanceof SecurityUser){
+            SecurityUser user = (SecurityUser)authentication.getPrincipal();
+            username = user.getUsername();
+            //输出登录提示信息
+            log.info(user.getUsername() +" login success!");
+        }
+
+
 
         Map<String, Object> map = ResponseDto.resultSuccess();
-        map.put("userName", user.getUsername());
+        map.put("userName", username);
         PrintUtils.outPrint(response, map);
+
     }
 }

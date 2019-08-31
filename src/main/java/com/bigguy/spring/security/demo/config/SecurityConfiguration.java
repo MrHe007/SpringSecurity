@@ -17,7 +17,6 @@ package com.bigguy.spring.security.demo.config;/**
  * @Description: ...
  */
 
-import com.bigguy.spring.security.demo.cst.ParamConstants;
 import com.bigguy.spring.security.demo.security.CustomUserDetailsServiceImpl;
 import com.bigguy.spring.security.demo.security.LoginFailHandler;
 import com.bigguy.spring.security.demo.security.LoginSuccessHandler;
@@ -25,7 +24,6 @@ import com.bigguy.spring.security.demo.security.MyLogoutSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -49,8 +47,8 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-       http.authorizeRequests()
+        http.csrf().disable();
+        http.authorizeRequests()
                .antMatchers("/healthCheck", "/accessDenied.json", "/login.json").permitAll()
                .antMatchers("/user/**").hasRole("user")
                .antMatchers("/admin/**").hasRole("admin")
@@ -58,47 +56,26 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
                .and()
                .formLogin().loginProcessingUrl("/login.json")
                // 设置登入的请求参数
-               .usernameParameter(ParamConstants.LOGIN_NAME)
-               .passwordParameter(ParamConstants.LOG_PASSWORD)
+//               .usernameParameter(ParamConstants.LOGIN_NAME)
+//               .passwordParameter(ParamConstants.LOG_PASSWORD)
                .successHandler(loginSuccessHandler())
                .failureHandler(loginFailHandler())
-               .and().logout().logoutUrl("/logout.json")
-               .and().httpBasic();
+               .and().logout().logoutUrl("/logout.json");
     }
 
-    /**
-     * 自定义方法，指定 登入验证器
-     * @param auth
-     * @throws Exception
-     */
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setHideUserNotFoundExceptions(false);
-        authProvider.setUserDetailsService(customUserDetailsService);
-
-        // 加密器
-//        authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
-        auth.authenticationProvider(authProvider);
-    }
-
-    /**
-     * 指定用户角色
-     * @param auth
-     * @throws Exception
-     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
-        auth.inMemoryAuthentication()
-                // 必须要进行加密
-                .passwordEncoder(new BCryptPasswordEncoder())
-                .withUser("admin").password(new BCryptPasswordEncoder().encode("admin"))
-                .roles("admin", "user")
-                .and()
-                .withUser("user").password(new BCryptPasswordEncoder().encode("user123"))
-                .roles("user");
+//        super.configure(auth);
+        auth.userDetailsService(customUserDetailsService);
     }
+
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() { //密码加密
+        return new BCryptPasswordEncoder(4);
+    }
+
+
 
     @Bean
     public LoginSuccessHandler loginSuccessHandler() {

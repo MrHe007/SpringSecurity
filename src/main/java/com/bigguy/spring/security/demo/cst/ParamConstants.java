@@ -27,4 +27,13 @@ public interface ParamConstants {
 
     String LOG_PASSWORD = "password";
 
+    String RESULT_CODE = "resultCode";
+
+    String ERROR_CODE = "errorCode";
+
+    String ERROR_DESC = "errorDesc";
+
+
+    String USER_PWD = "userPwd";
+
 }

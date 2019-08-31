@@ -1,8 +1,8 @@
 package com.bigguy.spring.security.demo.security;
 
-import com.bigguy.spring.security.demo.dto.ResponseDto;
 import com.bigguy.spring.security.demo.error.ErrorCodeEnum;
 import com.bigguy.spring.security.demo.util.PrintUtils;
+import com.bigguy.spring.security.demo.util.ResultUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -24,15 +24,15 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 		if(exception instanceof UsernameNotFoundException){
 			LOG.error(exception.getMessage());
-			PrintUtils.outPrint(response, ResponseDto.resultFail(ErrorCodeEnum.USER_NOT_FOUND.getErrorDesc()));
+			PrintUtils.outPrint(response, ResultUtils.buildFailResult(ErrorCodeEnum.USER_NOT_FOUND));
 		}
-		
+
 		if(exception instanceof BadCredentialsException){
-			PrintUtils.outPrint(response, ResponseDto.resultFail(ErrorCodeEnum.PASSWORD_INVAILD.getErrorDesc()));
+			PrintUtils.outPrint(response, ResultUtils.buildFailResult(ErrorCodeEnum.PASSWORD_INVAILD));
 		}
-		
+
 		if(exception instanceof DisabledException){
-			PrintUtils.outPrint(response, ResponseDto.resultFail(ErrorCodeEnum.USER_IS_DISABLE.getErrorDesc()));
+			PrintUtils.outPrint(response, ResultUtils.buildFailResult(ErrorCodeEnum.USER_IS_DISABLE));
 		}
 	}
 

@@ -26,6 +26,15 @@ public class ResultUtils {
 		
 		return map;
 	}
+
+	public static Map<String, Object> buildFailResult(String errorEesc){
+		Map<String, Object> map = new HashMap<>();
+		map.put(ParamConstants.RESULT_CODE, ResultCodeConstants.FAIL);
+		map.put(ParamConstants.ERROR_CODE, -1);
+		map.put(ParamConstants.ERROR_DESC, errorEesc);
+
+		return map;
+	}
 }
 
 	

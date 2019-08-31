@@ -17,6 +17,7 @@ package com.bigguy.spring.security.demo.config;/**
  * @Description: ...
  */
 
+import com.bigguy.spring.security.demo.cst.ParamConstants;
 import com.bigguy.spring.security.demo.security.CustomUserDetailsServiceImpl;
 import com.bigguy.spring.security.demo.security.LoginFailHandler;
 import com.bigguy.spring.security.demo.security.LoginSuccessHandler;
@@ -56,8 +57,8 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
                .and()
                .formLogin().loginProcessingUrl("/login.json")
                // 设置登入的请求参数
-//               .usernameParameter(ParamConstants.LOGIN_NAME)
-//               .passwordParameter(ParamConstants.LOG_PASSWORD)
+               .usernameParameter(ParamConstants.LOGIN_NAME)
+               .passwordParameter(ParamConstants.LOG_PASSWORD)
                .successHandler(loginSuccessHandler())
                .failureHandler(loginFailHandler())
                .and().logout().logoutUrl("/logout.json");
@@ -65,8 +66,13 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        super.configure(auth);
         auth.userDetailsService(customUserDetailsService);
+
+        // 在内存中验证登入的用户，不经过数据库
+        auth.inMemoryAuthentication()
+                .withUser("admin").password("admin").roles("admin", "user")
+                .and()
+                .withUser("hechen").password("hechen").roles("user");
     }
 
 
@@ -74,7 +80,6 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
     public BCryptPasswordEncoder passwordEncoder() { //密码加密
         return new BCryptPasswordEncoder(4);
     }
-
 
 
     @Bean

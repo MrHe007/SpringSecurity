@@ -32,7 +32,12 @@ public interface UserMapper {
 
     public User findUser(Integer id);
 
-    @Select("select u.* from user u where t.user")
+    /**
+     * 通过名字查找用户
+     * @param username
+     * @return
+     */
+    @Select("SELECT u.* FROM USER u WHERE u.`username` = #{username}")
     User findUserByName(String username);
 
 }

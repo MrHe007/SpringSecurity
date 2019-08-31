@@ -26,6 +26,7 @@ public class PrintUtils {
 			LOG.error("outPring error.", e);
 				
 		}
+		return;
 	}
 }
 

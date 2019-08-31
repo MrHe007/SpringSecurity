@@ -25,15 +25,15 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 		if(exception instanceof UsernameNotFoundException){
 			LOG.error(exception.getMessage());
 			PrintUtils.outPrint(response, ResultUtils.buildFailResult(ErrorCodeEnum.USER_NOT_FOUND));
-		}
-
-		if(exception instanceof BadCredentialsException){
+		}else if(exception instanceof BadCredentialsException){
 			PrintUtils.outPrint(response, ResultUtils.buildFailResult(ErrorCodeEnum.PASSWORD_INVAILD));
+		}else if(exception instanceof DisabledException){
+			PrintUtils.outPrint(response, ResultUtils.buildFailResult(ErrorCodeEnum.USER_IS_DISABLE));
+		}else {
+			// 未知异常
+			PrintUtils.outPrint(response, ResultUtils.buildFailResult("位置异常"));
 		}
 
-		if(exception instanceof DisabledException){
-			PrintUtils.outPrint(response, ResultUtils.buildFailResult(ErrorCodeEnum.USER_IS_DISABLE));
-		}
 	}
 
 }

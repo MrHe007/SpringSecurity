@@ -19,7 +19,6 @@ package com.bigguy.spring.security.demo.controller;/**
 
 import com.bigguy.spring.security.demo.dto.ResponseDto;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -27,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @data 2019/8/31
  */
 @RestController
-@RequestMapping("/log")
+//@RequestMapping("/log")
 public class LogController {
 
     @GetMapping("/logout")
@@ -35,5 +34,11 @@ public class LogController {
 
         return ResponseDto.resultSuccess();
     }
+
+//    @PostMapping("/login.json")
+//    public Object login(){
+//
+//        return null;
+//    }
 
 }

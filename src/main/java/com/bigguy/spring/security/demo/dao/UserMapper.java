@@ -32,4 +32,7 @@ public interface UserMapper {
 
     public User findUser(Integer id);
 
+    @Select("select t.* from user where t.user")
+    User findUserByName(String username);
+
 }

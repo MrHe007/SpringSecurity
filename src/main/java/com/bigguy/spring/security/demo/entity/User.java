@@ -26,12 +26,12 @@ import lombok.Data;
 @Data
 public class User {
     private Integer id;
+    private String userId;
     private String username;
     private String password;
     private String email;
-    private String telephone;
-    private String role;
-    private String image;
-    private String lastIp;
-    private String lastTime;
+    private String phone;
+    private Integer sex;
+    private Integer age;
+
 }

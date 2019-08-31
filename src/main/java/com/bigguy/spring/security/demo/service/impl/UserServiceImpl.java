@@ -44,4 +44,11 @@ public class UserServiceImpl implements IUserService {
     public User getUser(Integer id) {
         return userMapper.findUser(id);
     }
+
+    @Override
+    public User getUserByName(String username) {
+        return userMapper.findUserByName(username);
+    }
+
+
 }

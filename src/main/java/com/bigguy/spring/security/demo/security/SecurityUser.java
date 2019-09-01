@@ -38,8 +38,6 @@ public class SecurityUser extends User implements UserDetails {
             this.setUsername(user.getUsername());
             this.setPassword(user.getPassword());
             this.setEmail(user.getEmail());
-            this.setSex(user.getSex());
-            this.setAge(user.getAge());
         }
     }
 
@@ -66,21 +64,21 @@ public class SecurityUser extends User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

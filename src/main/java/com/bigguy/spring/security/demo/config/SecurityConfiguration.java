@@ -66,7 +66,7 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService);
+//        auth.userDetailsService(customUserDetailsService);
 
         // 在内存中验证登入的用户，不经过数据库
         auth.inMemoryAuthentication()
@@ -76,10 +76,10 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
     }
 
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() { //密码加密
-        return new BCryptPasswordEncoder(4);
-    }
+//    @Bean
+//    public BCryptPasswordEncoder passwordEncoder() { //密码加密
+//        return new BCryptPasswordEncoder(4);
+//    }
 
 
     @Bean

@@ -28,9 +28,9 @@ import java.util.List;
 public interface UserMapper {
 
     @Select("select t.* from user t")
-    public List<User> findUserList();
+    List<User> findUserList();
 
-    public User findUser(Integer id);
+    User findUser(Integer id);
 
     /**
      * 通过名字查找用户
@@ -39,5 +39,6 @@ public interface UserMapper {
      */
     @Select("SELECT u.* FROM USER u WHERE u.`username` = #{username}")
     User findUserByName(String username);
+
 
 }

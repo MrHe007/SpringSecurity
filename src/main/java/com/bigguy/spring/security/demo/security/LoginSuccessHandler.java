@@ -17,7 +17,7 @@ package com.bigguy.spring.security.demo.security;/**
  * @Description: ...
  */
 
-import com.bigguy.spring.security.demo.dto.ResponseDto;
+import com.bigguy.spring.security.demo.dto.map.ResponseDto;
 import com.bigguy.spring.security.demo.entity.User;
 import com.bigguy.spring.security.demo.util.PrintUtils;
 import lombok.extern.slf4j.Slf4j;

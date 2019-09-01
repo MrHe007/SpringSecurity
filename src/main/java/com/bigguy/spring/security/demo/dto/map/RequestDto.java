@@ -11,7 +11,7 @@ in accordance with the terms of the contract agreement
 you entered into with IBOXCHAIN inc.
 
 */
-package com.bigguy.spring.security.demo.dto;/**
+package com.bigguy.spring.security.demo.dto.map;/**
  * @Author: hechen
  * @Date: 2019/8/31 13:40
  * @Description: ...

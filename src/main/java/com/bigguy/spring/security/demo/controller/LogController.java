@@ -17,7 +17,7 @@ package com.bigguy.spring.security.demo.controller;/**
  * @Description: ...
  */
 
-import com.bigguy.spring.security.demo.dto.ResponseDto;
+import com.bigguy.spring.security.demo.dto.map.ResponseDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

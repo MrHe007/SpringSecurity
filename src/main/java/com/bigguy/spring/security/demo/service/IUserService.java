@@ -17,6 +17,8 @@ package com.bigguy.spring.security.demo.service;/**
  * @Description: ...
  */
 
+import com.bigguy.spring.security.demo.dto.UserPermissionDto;
+import com.bigguy.spring.security.demo.dto.UserRoleDto;
 import com.bigguy.spring.security.demo.entity.User;
 
 import java.util.List;
@@ -32,5 +34,19 @@ public interface IUserService {
     public User getUser(Integer id);
 
     User getUserByName(String username);
+
+    /**
+     * 查找出用户关联角色
+     * @param username
+     * @return
+     */
+    List<UserRoleDto> getUserRoleList(String username);
+
+    /**
+     * 查找出用户关联权限
+     * @param username
+     * @return
+     */
+    List<UserPermissionDto> getUserPermList(String username);
 
 }

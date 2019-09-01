@@ -13,7 +13,7 @@
           u.id,
           u.`username`,
           r.`name` roleName,
-          r.`sn`
+          r.`sn` resource
         from
           user u,
           user_role ur,

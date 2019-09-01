@@ -18,6 +18,8 @@ package com.bigguy.spring.security.demo.service.impl;/**
  */
 
 import com.bigguy.spring.security.demo.dao.UserMapper;
+import com.bigguy.spring.security.demo.dto.UserPermissionDto;
+import com.bigguy.spring.security.demo.dto.UserRoleDto;
 import com.bigguy.spring.security.demo.entity.User;
 import com.bigguy.spring.security.demo.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,16 @@ public class UserServiceImpl implements IUserService {
     @Override
     public User getUserByName(String username) {
         return userMapper.findUserByName(username);
+    }
+
+    @Override
+    public List<UserRoleDto> getUserRoleList(String username) {
+        return userMapper.findUserRelRole(username);
+    }
+
+    @Override
+    public List<UserPermissionDto> getUserPermList(String username) {
+        return userMapper.findUerRelPermission(username);
     }
 
 

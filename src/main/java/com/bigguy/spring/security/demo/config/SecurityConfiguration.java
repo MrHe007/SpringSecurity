@@ -18,10 +18,7 @@ package com.bigguy.spring.security.demo.config;/**
  */
 
 import com.bigguy.spring.security.demo.cst.ParamConstants;
-import com.bigguy.spring.security.demo.security.CustomUserDetailsServiceImpl;
-import com.bigguy.spring.security.demo.security.LoginFailHandler;
-import com.bigguy.spring.security.demo.security.LoginSuccessHandler;
-import com.bigguy.spring.security.demo.security.MyLogoutSuccessHandler;
+import com.bigguy.spring.security.demo.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,6 +43,9 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
     @Autowired
     CustomUserDetailsServiceImpl customUserDetailsService;
 
+    @Autowired
+    MyAuthenticationProvider authenticationProvider;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -68,6 +68,8 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter{
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.userDetailsService(customUserDetailsService);
 
+        // 自定义登入验证逻辑
+        auth.authenticationProvider(authenticationProvider);
         // 在内存中验证登入的用户，不经过数据库
         auth.inMemoryAuthentication()
                 .withUser("admin").password("admin").roles("admin", "user")

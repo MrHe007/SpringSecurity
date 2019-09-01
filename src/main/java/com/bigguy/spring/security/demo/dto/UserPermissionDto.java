@@ -4,7 +4,7 @@ package com.bigguy.spring.security.demo.dto;
  * @author bigguy_hc
  * @create 2019-09-01 11:39
  */
-public class UserPermission {
+public class UserPermissionDto {
     /**
      * 用户ID
      */

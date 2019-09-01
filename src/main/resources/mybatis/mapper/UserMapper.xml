@@ -8,4 +8,37 @@
     <select id="findUser" resultType="com.bigguy.spring.security.demo.entity.User">
         select u.* from user where u.id  = #{id}
     </select>
+    <select id="findUserRelRole" resultType="com.bigguy.spring.security.demo.dto.UserRoleDto">
+        select
+          u.id,
+          u.`username`,
+          r.`name` roleName,
+          r.`sn`
+        from
+          user u,
+          user_role ur,
+          role r
+        where u.`id` = ur.`user_id`
+          and ur.`role_id` = r.`id`
+          and u.username = #{username}
+    </select>
+    <select id="findUerRelPermission" resultType="com.bigguy.spring.security.demo.dto.UserPermissionDto">
+        SELECT
+        u.id,
+        u.`username`,
+        r.`name` roleName,
+        p.name permissionName,
+        p.resource
+      FROM
+        USER u,
+        user_role ur,
+        role r,
+        permission p,
+        role_permission rp
+      WHERE u.`id` = ur.`user_id`
+        AND ur.`role_id` = r.`id`
+        AND r.`id` = rp.role_id
+        AND rp.permission_id = p.id
+        AND u.username = #{username}
+    </select>
 </mapper>

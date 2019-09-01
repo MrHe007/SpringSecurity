@@ -13,6 +13,8 @@ you entered into with IBOXCHAIN inc.
 */
 package com.bigguy.spring.security.demo.dao;
 
+import com.bigguy.spring.security.demo.dto.UserPermissionDto;
+import com.bigguy.spring.security.demo.dto.UserRoleDto;
 import com.bigguy.spring.security.demo.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -40,6 +42,18 @@ public interface UserMapper {
     @Select("SELECT u.* FROM USER u WHERE u.`username` = #{username}")
     User findUserByName(String username);
 
+    /**
+     * 查找用户关联角色
+     * @param username
+     * @return
+     */
+    List<UserRoleDto> findUserRelRole(String username);
 
+    /**
+     * 查找用户关联权限
+     * @param username
+     * @return
+     */
+    List<UserPermissionDto> findUerRelPermission(String username);
 
 }
